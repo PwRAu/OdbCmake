@@ -4,7 +4,7 @@ project(OdbCMake)
 
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake/Modules")
 
-find_package(ODB REQUIRED COMPONENTS qt sqlite OPTIONAL_COMPONENTS mysql pgsql)
+find_package(ODB REQUIRED COMPONENTS pgsql OPTIONAL_COMPONENTS mysql sqlite qt)
 include(${ODB_USE_FILE})
 
 set(OdbCMake_SOURCES
@@ -14,7 +14,7 @@ set(OdbCMake_SOURCES
 set(OdbCMake_ODB_HEADERS
 	person.h)
 
-odb_compile(OdbCMake_SOURCES FILES ${OdbCMake_ODB_HEADERS} DB sqlite GENERATE_QUERY GENERATE_SESSION)
+odb_compile(OdbCMake_SOURCES FILES ${OdbCMake_ODB_HEADERS} DB pgsql GENERATE_QUERY GENERATE_SESSION)
 
 add_executable(odbcmake
 	${OdbCMake_SOURCES}
@@ -27,4 +27,4 @@ target_include_directories(odbcmake
 		${ODB_COMPILE_OUTPUT_DIR})
 target_compile_definitions(odbcmake
 	PRIVATE
-		DATABASE_SQLITE)
+		DATABASE_PGSQL)
